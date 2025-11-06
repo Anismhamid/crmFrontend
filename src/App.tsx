@@ -30,13 +30,25 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LanguageIcon from "@mui/icons-material/Language";
 import {useState} from "react";
 import Users from "./components/pages/Users";
-import { VerifiedUserSharp } from "@mui/icons-material";
+import {People, ProductionQuantityLimitsSharp} from "@mui/icons-material";
+import Home from "./components/pages/Home";
 
 const drawerWidth = 240;
 
 const navigation = [
-	{segment: "users", title: "users", icon: <DashboardIcon />, path: "/"},
-	{segment: "users", title: "users", icon: <VerifiedUserSharp />, path: "/products"},
+	{
+		segment: "Home",
+		title: "Home",
+		icon: <DashboardIcon />,
+		path: "/home",
+	},
+	{
+		segment: "products",
+		title: "products",
+		icon: <ProductionQuantityLimitsSharp />,
+		path: "/products",
+	},
+	{segment: "users", title: "users", icon: <People />, path: "/users"},
 	{
 		segment: "Shopping Carts",
 		title: "Shopping Carts",
@@ -102,8 +114,8 @@ function App() {
 							sx={{
 								flexGrow: 1,
 								padding: "1rem",
-								marginLeft: open ? `${drawerWidth}px` : 0,
-								transition: "margin-left 0.3s",
+								marginLeft: open ? `${drawerWidth}px` : -30,
+								transition: "margin-left 0.2s",
 							}}
 						>
 							{/* AppBar */}
@@ -111,10 +123,10 @@ function App() {
 								position='fixed'
 								sx={{
 									width: open
-										? `calc(100% - ${drawerWidth}px)`
+										? `calc(100% - ${drawerWidth - 20}px)`
 										: "100%",
 									marginLeft: open ? `${drawerWidth}px` : 0,
-									transition: "width 0.3s, margin-left 0.3s",
+									transition: "width 0.3s, margin-left 0.2s",
 								}}
 							>
 								<Toolbar
@@ -141,8 +153,10 @@ function App() {
 
 							{/* Routes */}
 							<Routes>
+								<Route path='/home' element={<Home />} />
 								<Route path='/products' element={<Products />} />
 								<Route path='/users' element={<Users />} />
+								<Route path='/ShoppingCarts' element={<Users />} />
 							</Routes>
 						</Box>
 					</Box>
