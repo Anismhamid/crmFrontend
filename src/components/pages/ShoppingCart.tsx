@@ -1,23 +1,22 @@
-import {useEffect, useState, type FunctionComponent} from "react";
-import {getAllProducts} from "../../services/products";
-import type {Product} from "../../interfaces/Products";
-import CircularProgressBar from "../../assets/CircularProgressBar";
 import {
-	Box,
-	Table,
-	TableBody,
-	TableCell,
+	Typography,
 	TableContainer,
+	Paper,
+	Table,
 	TableHead,
 	TableRow,
-	Paper,
-	Typography,
+	TableCell,
+	TableBody,
 	Avatar,
 } from "@mui/material";
+import {useEffect, useState, type FunctionComponent} from "react";
+import type {Product} from "../../interfaces/Products";
+import CircularProgressBar from "../../assets/CircularProgressBar";
+import {getAllProducts} from "../../services/products";
 
-interface ProductsProps {}
+interface ShoppingCartProps {}
 
-const Products: FunctionComponent<ProductsProps> = () => {
+const ShoppingCart: FunctionComponent<ShoppingCartProps> = () => {
 	const [products, setProduct] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 
@@ -34,6 +33,7 @@ const Products: FunctionComponent<ProductsProps> = () => {
 
 	return (
 		<>
+			{" "}
 			<Typography variant='h4' component='h1'>
 				Products
 			</Typography>
@@ -77,4 +77,4 @@ const Products: FunctionComponent<ProductsProps> = () => {
 	);
 };
 
-export default Products;
+export default ShoppingCart;
