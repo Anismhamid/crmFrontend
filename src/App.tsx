@@ -1,6 +1,5 @@
 import "./App.css";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Products from "./components/pages/Products";
 import i18n from "../locales/i18";
 import {I18nextProvider} from "react-i18next";
 import {AppBar, Box, IconButton, ThemeProvider, Toolbar} from "@mui/material";
@@ -8,10 +7,7 @@ import {createTheme} from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import LanguageIcon from "@mui/icons-material/Language";
 import {useState} from "react";
-import Users from "./components/pages/Users";
-import Home from "./components/pages/Home";
 import Navbar, {drawerWidth} from "./components/dashboard/Navbar";
-import ShoppingCart from "./components/pages/ShoppingCart";
 import {routes} from "./routes/AppRoutes";
 
 const theme = createTheme({palette: {mode: "dark"}});

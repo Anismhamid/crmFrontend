@@ -19,3 +19,30 @@ export const getProductsByName = async (name: string) => {
 		console.error(error);
 	}
 };
+
+export const getProductById = async (id: string) => {
+	try {
+		const result = await axios.get(`${API}/${id}`);
+		return result.data;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const getProductsByCategory = async (category: string) => {
+	try {
+		const result = await axios.get(`${API}/${category}`);
+		return result.data;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const searchProducts = async (q: string, category: string = "") => {
+	try {
+		const result = await axios.get(`${API}/${q || category}`);
+		return result.data;
+	} catch (error) {
+		console.error(error);
+	}
+};
