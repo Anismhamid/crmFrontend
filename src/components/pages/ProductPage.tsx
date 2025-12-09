@@ -1,5 +1,5 @@
 import {useState, useEffect, type FunctionComponent} from "react";
-import {useParams, useSearchParams} from "react-router-dom";
+import {Link, useParams, useSearchParams} from "react-router-dom";
 import {
 	Box,
 	Typography,
@@ -11,7 +11,6 @@ import {
 	Button,
 	Container,
 	Breadcrumbs,
-	Link,
 	Alert,
 } from "@mui/material";
 import {ShoppingCart, Favorite, Share, NavigateNext} from "@mui/icons-material";
@@ -54,7 +53,9 @@ const ProductPage: FunctionComponent<ProductPageProps> = () => {
 
 				// Fetch related products from same category
 				if (productData.category) {
-					const related = await getProductsByCategory(product?.category || "");
+					const related = await getProductsByCategory(
+						productData.category || "",
+					);
 					const filteredRelated = related
 						.filter((p: Product) => p._id !== id)
 						.slice(0, 4);
@@ -154,13 +155,13 @@ const ProductPage: FunctionComponent<ProductPageProps> = () => {
 		<Container maxWidth='lg' sx={{py: 4}}>
 			{/* Breadcrumbs */}
 			<Breadcrumbs separator={<NavigateNext fontSize='small' />} sx={{mb: 3}}>
-				<Link color='inherit' href='/'>
+				<Link color='inherit' to='/'>
 					Home
 				</Link>
-				<Link color='inherit' href='/products'>
+				<Link color='inherit' to='/products'>
 					Products
 				</Link>
-				<Link color='inherit' href={`/products/category/${product.category}`}>
+				<Link color='inherit' to={`/products/category/${product.category}`}>
 					{product.category}
 				</Link>
 				<Typography color='text.primary'>{product.product_name}</Typography>

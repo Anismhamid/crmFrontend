@@ -31,7 +31,7 @@ export const getProductById = async (id: string) => {
 
 export const getProductsByCategory = async (category: string) => {
 	try {
-		const result = await axios.get(`${API}/${category}`);
+		const result = await axios.get(`${API}/category/${category}`);
 		return result.data;
 	} catch (error) {
 		console.error(error);

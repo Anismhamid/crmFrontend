@@ -23,7 +23,7 @@ import {Favorite, FavoriteBorder, ShoppingCart, Visibility} from "@mui/icons-mat
 import {Link} from "react-router-dom";
 import type {Product} from "../../interfaces/Products";
 
-interface ProductListProps {
+interface ProductsCategoryProps {
 	products: Product[];
 	loading?: boolean;
 	onAddToCart?: (product: Product) => void;
@@ -39,7 +39,7 @@ interface ProductListProps {
 	sortBy?: string;
 }
 
-const ProductList: FunctionComponent<ProductListProps> = ({
+const ProductsCategory: FunctionComponent<ProductsCategoryProps> = ({
 	products,
 	loading = false,
 	onAddToCart,
@@ -57,6 +57,8 @@ const ProductList: FunctionComponent<ProductListProps> = ({
 	const handleAddToCart = (product: Product) => {
 		if (onAddToCart) {
 			onAddToCart(product);
+			
+			
 		} else {
 			// Default behavior
 			console.log("Add to cart:", product.product_name);
@@ -209,7 +211,7 @@ const ProductList: FunctionComponent<ProductListProps> = ({
 										overflow: "hidden",
 									}}
 								>
-									<Link to={`/products/category/${product.category.toLocaleLowerCase()}`}>
+									<Link to={`/products/${product._id}`}>
 										<CardMedia
 											component='img'
 											image={
@@ -276,7 +278,7 @@ const ProductList: FunctionComponent<ProductListProps> = ({
 									{/* Product Name */}
 									<Typography
 										component={Link}
-										to={`/products/${product._id}`}
+										to={`/products/category/${product.category.toLocaleLowerCase()}`}
 										variant='h6'
 										sx={{
 											display: "-webkit-box",
@@ -383,4 +385,4 @@ const ProductList: FunctionComponent<ProductListProps> = ({
 	);
 };
 
-export default ProductList;
+export default ProductsCategory;

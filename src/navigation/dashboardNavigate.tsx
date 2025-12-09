@@ -6,8 +6,8 @@ import {People, ProductionQuantityLimitsSharp} from "@mui/icons-material";
 
 export const navigation = [
 	{
-		segment: "Home",
-		title: "Home",
+		segment: "Dashboard",
+		title: "Dashboard",
 		icon: <DashboardIcon />,
 		path: "/",
 	},

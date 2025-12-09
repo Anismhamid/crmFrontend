@@ -2,20 +2,29 @@ import "./App.css";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import i18n from "../locales/i18";
 import {I18nextProvider} from "react-i18next";
-import {AppBar, Box, IconButton, ThemeProvider, Toolbar} from "@mui/material";
+import {
+	AppBar,
+	Box,
+	IconButton,
+	ThemeProvider,
+	Toolbar,
+	useMediaQuery,
+} from "@mui/material";
 import {createTheme} from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import LanguageIcon from "@mui/icons-material/Language";
 import {useState} from "react";
 import Navbar, {drawerWidth} from "./components/dashboard/Navbar";
 import {routes} from "./routes/AppRoutes";
+import Footer from "./components/Footer";
 
-const theme = createTheme({palette: {mode: "dark"}});
+const theme = createTheme({palette: {mode: "light"}});
 
 function App() {
 	const [open, setOpen] = useState(false);
 
 	const toggleDrawer = () => setOpen(!open);
+	const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
 		<I18nextProvider i18n={i18n}>
@@ -29,18 +38,21 @@ function App() {
 							sx={{
 								flexGrow: 1,
 								padding: "1rem",
-								marginLeft: open ? 0 : -30,
+								marginLeft: open ? 0 : -10,
 								transition: "margin-left 0.2s",
 							}}
+							className='table-responsive'
 						>
 							{/* AppBar */}
 							<AppBar
-								position='fixed'
+								position='absolute'
 								sx={{
-									width: open
-										? `calc(100% - ${drawerWidth}px)`
-										: "100%",
-									marginLeft: open ? `${drawerWidth}px` : 0,
+									backgroundColor: "#06213d",
+									width:
+										open && mobile
+											? `calc(100% - ${-180}px)`
+											: `100%`,
+									marginLeft: open ? `${240}px` : 0,
 									transition: "width 0.3s, margin-left 0.2s",
 								}}
 							>
@@ -48,12 +60,23 @@ function App() {
 									sx={{
 										display: "flex",
 										justifyContent: "space-between",
+
+										width:
+											open && mobile
+												? `calc(100% - ${drawerWidth - 180}px)`
+												: "100%",
+										marginRight: 0,
+										transition: "width 0.3s, margin-left 0.2s",
 									}}
 								>
 									<IconButton
 										color='inherit'
 										onClick={toggleDrawer}
 										edge='start'
+										sx={{
+											marginLeft: open ? 240 + "px" : 0 + "px",
+											transition: "width 0.3s, margin-left 0.2s",
+										}}
 									>
 										<MenuIcon />
 									</IconButton>
@@ -74,6 +97,7 @@ function App() {
 							</Routes>
 						</Box>
 					</Box>
+					<Footer />
 				</Router>
 			</ThemeProvider>
 		</I18nextProvider>
