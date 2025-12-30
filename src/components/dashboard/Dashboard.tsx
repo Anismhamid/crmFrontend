@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext, type FunctionComponent} from "react";
 import {FiUsers, FiDollarSign, FiTrendingUp, FiActivity} from "react-icons/fi";
 
 import {
@@ -13,7 +13,8 @@ import {
 	Legend,
 } from "chart.js";
 import {Line, Bar} from "react-chartjs-2";
-import { CRMContext } from "../pages/CRMContext";
+import {CRMContext} from "../../context/CRMContext";
+import type {User} from "../../interfaces/Users";
 
 ChartJS.register(
 	CategoryScale,
@@ -25,8 +26,11 @@ ChartJS.register(
 	Tooltip,
 	Legend,
 );
+interface DashboardProps {
+	auth: User | null;
+}
 
-const Dashboard: React.FC = () => {
+const Dashboard: FunctionComponent<DashboardProps> = ({auth}) => {
 	const {stats} = useContext(CRMContext);
 
 	const statCards = [
@@ -61,8 +65,8 @@ const Dashboard: React.FC = () => {
 		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
 		datasets: [
 			{
-				label: "Monthly Revenue ($)",
-				data: [120000, 140000, 135000, 160000, 175000, 168000, 182000],
+				label: "Monthly Revenue (₪)",
+				data: [0, 120000, 140000, 135000, 160000, 175000, 168000, 182000],
 				borderWidth: 3,
 			},
 		],
@@ -82,6 +86,7 @@ const Dashboard: React.FC = () => {
 
 	return (
 		<div className='container py-4'>
+			{auth?.email}
 			{/* Cards Row */}
 			<div className='row g-4 mb-4'>
 				{statCards.map((stat, index) => (

@@ -1,13 +1,18 @@
 import "./App.css";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import i18n from "../locales/i18";
 import {I18nextProvider} from "react-i18next";
 import {
 	AppBar,
 	Box,
 	IconButton,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemText,
 	ThemeProvider,
 	Toolbar,
+	Typography,
 	useMediaQuery,
 } from "@mui/material";
 import {createTheme} from "@mui/material/styles";
@@ -17,6 +22,7 @@ import {useState} from "react";
 import Navbar, {drawerWidth} from "./components/dashboard/Navbar";
 import {routes} from "./routes/AppRoutes";
 import Footer from "./components/Footer";
+import {useAuth} from "./context/UserContext";
 
 const theme = createTheme({palette: {mode: "light"}});
 
@@ -25,6 +31,7 @@ function App() {
 
 	const toggleDrawer = () => setOpen(!open);
 	const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+	const {user} = useAuth();
 
 	return (
 		<I18nextProvider i18n={i18n}>
@@ -45,9 +52,9 @@ function App() {
 						>
 							{/* AppBar */}
 							<AppBar
-								position='absolute'
+								position='fixed'
 								sx={{
-									backgroundColor: "#06213d",
+									// backgroundColor: "#186EC9",
 									width:
 										open && mobile
 											? `calc(100% - ${-180}px)`
@@ -83,6 +90,44 @@ function App() {
 									<IconButton color='inherit'>
 										<LanguageIcon />
 									</IconButton>
+									<Typography
+										component={"h5"}
+										sx={{
+											transition: "all .2s ease",
+											"&:hover": {
+												transform: "scale(1.1)",
+											},
+											backgroundColor: "transparent",
+										}}
+										className='text-capitalize'
+									>
+										{user && (
+											<Link
+												to={`/profile/me`}
+												style={{color: "inherit"}}
+											>
+												welcome, {user.profile.firstName}
+											</Link>
+										)}
+									</Typography>
+									{!user && (
+										<List>
+											<ListItem key={"Login"} disablePadding>
+												<ListItemButton
+													component={Link}
+													to={"/login"}
+													selected={
+														location.pathname === "/login"
+													}
+												>
+													<ListItemText
+														sx={{color: "white"}}
+														primary={"Login"}
+													/>
+												</ListItemButton>
+											</ListItem>
+										</List>
+									)}
 								</Toolbar>
 							</AppBar>
 
@@ -97,7 +142,7 @@ function App() {
 							</Routes>
 						</Box>
 					</Box>
-					<Footer />
+					<Footer open={open} />
 				</Router>
 			</ThemeProvider>
 		</I18nextProvider>

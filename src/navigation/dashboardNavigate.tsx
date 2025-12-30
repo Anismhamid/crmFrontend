@@ -13,11 +13,11 @@ export const navigation = [
 	},
 	{
 		segment: "products",
-		title: "products",
+		title: "Products",
 		icon: <ProductionQuantityLimitsSharp />,
 		path: "/products",
 	},
-	{segment: "users", title: "users", icon: <People />, path: "/users"},
+	{segment: "users", title: "Manage users", icon: <People />, path: "/users"},
 	{
 		segment: "Shopping Carts",
 		title: "Shopping Carts",

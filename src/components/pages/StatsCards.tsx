@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {FiUsers, FiDollarSign, FiTrendingUp, FiActivity} from "react-icons/fi";
-import {CRMContext} from "./CRMContext";
+import {CRMContext} from "../../context/CRMContext";
 
 const StatsCards: React.FC = () => {
 	const {stats} = useContext(CRMContext);

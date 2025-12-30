@@ -1,130 +1,156 @@
 import type {FunctionComponent} from "react";
 import Style from "./Footer.module.css";
-interface FooterProps {}
+import {Link} from "react-router-dom";
+import {Box, MenuItem, MenuList, useMediaQuery, useTheme} from "@mui/material";
+import {drawerWidth} from "./dashboard/Navbar";
+import {useFormik} from "formik";
+import * as yup from "yup";
+interface FooterProps {
+	open: boolean;
+}
 
-const Footer: FunctionComponent<FooterProps> = () => {
+const Footer: FunctionComponent<FooterProps> = ({open = true}) => {
+	const theme = useTheme();
+	const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+	const formik = useFormik({
+		initialValues: {email: ""},
+		validationSchema: yup.object({
+			email: yup.string().email("Invalid email").required("Email is required"),
+		}),
+		onSubmit: (data, {resetForm}) => {
+			console.log(data);
+			resetForm();
+		},
+	});
 	return (
 		<>
-			<div className={Style.foterDiv}>
-				<div className='row'>
-					<div className='col-6 col-md-2 mb-3'>
-						<h5>Section</h5>{" "}
-						<ul className='nav flex-column'>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
-									Home
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
-									Features
-								</a>
-							</li>{" "}
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
-									Pricing
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					marginLeft: !mobile ? (open ? `${drawerWidth}px` : 0) :`60px` ,
+					transition: "margin-left 0.2s",
+				}}
+				className={`${Style.foterDiv} p-3`}
+			>
+				<Box className='row p-1'>
+					<Box className='col-6 col-md-2 mb-3'>
+						<h5>Settings</h5>
+						<MenuList className='nav flex-column'>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='/' className='nav-link p-0 text-warning'>
+									Dashboard
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
+									Products
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
+									Customers
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									FAQs
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									About
-								</a>
-							</li>
-						</ul>{" "}
-					</div>{" "}
-					<div className='col-6 col-md-2 mb-3'>
-						{" "}
-						<h5>Section</h5>{" "}
-						<ul className='nav flex-column'>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
-									Home
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+						</MenuList>
+					</Box>
+					<Box className='col-6 col-md-2 mb-3'>
+						<h5>Docs</h5>
+						<MenuList className='nav flex-column'>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='/' className='nav-link p-0 text-white'>
+									Control
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									Features
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									Pricing
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									FAQs
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									About
-								</a>
-							</li>{" "}
-						</ul>
-					</div>{" "}
-					<div className='col-6 col-md-2 mb-3'>
-						{" "}
-						<h5>Section</h5>{" "}
-						<ul className='nav flex-column'>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+						</MenuList>
+					</Box>
+					<Box className='col-6 col-md-2 mb-3'>
+						<h5>Section3</h5>
+						<MenuList className='nav flex-column'>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									Home
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									Features
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									Pricing
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									FAQs
-								</a>
-							</li>
-							<li className='nav-item mb-2'>
-								<a href='#' className='nav-link p-0 text-white'>
+								</Link>
+							</MenuItem>
+							<MenuItem className='nav-item mb-2'>
+								<Link to='#' className='nav-link p-0 text-white'>
 									About
-								</a>
-							</li>{" "}
-						</ul>{" "}
-					</div>{" "}
-					<div className='col-md-5 offset-md-1 mb-3'>
-						{" "}
-						<form>
-							{" "}
-							<h5>Subscribe to our newsletter</h5>{" "}
-							<p>Monthly digest of what's new and exciting from us.</p>{" "}
-							<div className='d-flex flex-column flex-sm-row w-100 gap-2'>
-								{" "}
-								<label htmlFor='newsletter1' className='visually-hidden'>
-									Email address
-								</label>
-								<input
-									id='newsletter1'
-									type='email'
-									className='form-control'
-									placeholder='Email address'
-								/>{" "}
-								<button className='btn btn-primary' type='button'>
-									Subscribe
-								</button>{" "}
-							</div>{" "}
-						</form>{" "}
-					</div>{" "}
-				</div>
-			</div>
-			<div className={`${Style.down} display-6`}>down</div>
+								</Link>
+							</MenuItem>
+						</MenuList>
+					</Box>
+					<div className='d-flex flex-column flex-sm-row w-100 gap-2'>
+						<label htmlFor='email' className='visually-hidden'>
+							Email address
+						</label>
+
+						<input
+							id='email'
+							name='email'
+							type='email'
+							className='form-control'
+							placeholder='Email address'
+							value={formik.values.email}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+						/>
+
+						<button className='btn btn-primary' type='submit'>
+							Subscribe
+						</button>
+					</div>
+
+					{formik.touched.email && formik.errors.email && (
+						<div className='text-danger mt-1'>{formik.errors.email}</div>
+					)}
+				</Box>
+			</Box>
 		</>
 	);
 };
