@@ -28,7 +28,6 @@ export interface User {
 }
 
 export interface UserRegisterationType {
-	_id?: string;
 	email: string;
 	password: string;
 	profile: {
@@ -51,7 +50,6 @@ export interface UserRegisterationType {
 }
 
 export const initialValues: UserRegisterationType = {
-	_id: "",
 	email: "",
 	password: "",
 	profile: {

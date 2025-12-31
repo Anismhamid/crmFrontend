@@ -1,4 +1,4 @@
-import type { User } from "../interfaces/Users";
+import type {User} from "../interfaces/Users";
 
 export const formatDate = (dateString?: string) => {
 	if (!dateString) return "No avalible date";
@@ -24,4 +24,8 @@ export const getRoleColor = (role: User["profile"]["role"]) => {
 		default:
 			return "default";
 	}
+};
+
+export const priceToLocalString = (price: number) => {
+	return price.toLocaleString("he-IL", {currency: "ILS", style: "currency"});
 };

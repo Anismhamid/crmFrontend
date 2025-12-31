@@ -132,7 +132,7 @@ function Navbar({open}: {open: boolean}) {
 					)}
 				</>
 			</List>
-			<Filters />
+			{/* <Filters onChange={() => {}} /> */}
 		</Drawer>
 	);
 }

@@ -1,5 +1,4 @@
-import {useEffect, useState, type FunctionComponent} from "react";
-import {getAllProducts} from "../../services/products";
+import {type FunctionComponent} from "react";
 import type {Product} from "../../interfaces/Products";
 import CircularProgressBar from "../../assets/CircularProgressBar";
 import {
@@ -13,47 +12,61 @@ import {
 	Paper,
 	Typography,
 	Avatar,
+	Chip,
+	IconButton,
+	Tooltip,
 } from "@mui/material";
 import {Link} from "react-router-dom";
+import {priceToLocalString} from "../../assets/helpets";
+import Filters from "../dashboard/Filters";
+import {useProductsWithFilters} from "../hooks/useProductsWithFilters";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DiscountIcon from "@mui/icons-material/Discount";
 
 interface ProductsProps {}
 
 const Products: FunctionComponent<ProductsProps> = () => {
-	const [products, setProducts] = useState<Product[]>([]); // Fixed: setProduct → setProducts
-	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		getAllProducts()
-			.then((res) => {
-				setProducts(res);
-			})
-			.catch((error) => console.error("Error loading products", error))
-			.finally(() => setLoading(false));
-	}, []);
+	const {products, loading, filters, setFilters, error} = useProductsWithFilters();
 
 	if (loading) return <CircularProgressBar />;
+	if (error) return <Typography color='error'>{error}</Typography>;
 
 	return (
-		<Box sx={{p: 3}}>
+		<Box sx={{p: {xs: 1, md: 3}}}>
 			<Typography variant='h4' component='h1' gutterBottom>
-				Products
+				Products ({products.length})
 			</Typography>
-			<Box sx={{display: "flex", justifyContent: "center"}}>
-				<TableContainer component={Paper} elevation={3} sx={{maxWidth: 1200}}>
-					<Table>
+
+			<Filters filters={filters} onChange={setFilters} />
+
+			<Box sx={{mt: 3}}>
+				<TableContainer className=" table" component={Paper} elevation={2}>
+					<Table >
 						<TableHead>
-							<TableRow>
-								<TableCell align='center'></TableCell>
-								<TableCell>Name</TableCell>
-								<TableCell>Quantity</TableCell>
+							<TableRow sx={{backgroundColor: "action.hover"}}>
+								<TableCell width='60px' align='center'>
+									Image
+								</TableCell>
+								<TableCell>Product Name</TableCell>
+								<TableCell width='120px' align='center'>
+									Stock
+								</TableCell>
 								<TableCell>Manufacturer</TableCell>
-								<TableCell>Price</TableCell>
+								<TableCell width='120px' align='right'>
+									Price
+								</TableCell>
+								<TableCell width='120px' align='right'>
+									Category
+								</TableCell>
+								<TableCell width='80px' align='center'>
+									Actions
+								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							{products.length > 0 ? (
-								products.map((product: Product, index) => (
-									<TableRow key={product._id || index} hover>
+								products.map((product: Product) => (
+									<TableRow key={product._id} hover>
 										<TableCell align='center'>
 											<Link to={`/products/${product._id}`}>
 												<Avatar
@@ -63,27 +76,106 @@ const Products: FunctionComponent<ProductsProps> = () => {
 														product.product_name
 													}
 													sx={{
-														width: 56,
-														height: 56,
+														width: 50,
+														height: 50,
 														margin: "auto",
 													}}
 												/>
 											</Link>
 										</TableCell>
 
-										<TableCell>{product.product_name}</TableCell>
-										<TableCell>{product.quantity_in_stock}</TableCell>
-										<TableCell>{product.manufacturer}</TableCell>
 										<TableCell>
-											${product.price?.toFixed(2)}
+											<Box>
+												<Typography
+													variant='body1'
+													fontWeight='medium'
+												>
+													{product.product_name}
+												</Typography>
+												{product.sales.isSale && (
+													<Chip
+														icon={<DiscountIcon />}
+														label='On Sale'
+														color='success'
+														size='small'
+														sx={{mt: 0.5}}
+													/>
+												)}
+											</Box>
+										</TableCell>
+
+										<TableCell align='center'>
+											<Chip
+												label={product.quantity_in_stock}
+												color={
+													product.quantity_in_stock > 10
+														? "success"
+														: product.quantity_in_stock > 0
+														? "warning"
+														: "error"
+												}
+												variant='outlined'
+												size='small'
+											/>
+										</TableCell>
+
+										<TableCell>{product.manufacturer}</TableCell>
+
+										<TableCell align='right'>
+											<Typography variant='body1' fontWeight='bold'>
+												{priceToLocalString(product.price)}
+											</Typography>
+											{product.sales.discount > 0 && (
+												<Typography
+													variant='caption'
+													color='text.secondary'
+													sx={{textDecoration: "line-through"}}
+												>
+													{priceToLocalString(
+														product.price *
+															(1 +
+																product.sales.discount /
+																	100),
+													)}
+												</Typography>
+											)}
+										</TableCell>
+
+										<TableCell align='center'>
+											<Typography
+												variant='caption'
+												color='text.secondary'
+											>
+												<IconButton
+													component={Link}
+													to={`/products/category/${product.category}`}
+													size='small'
+												>
+													{product.category}
+												</IconButton>
+											</Typography>
+										</TableCell>
+										<TableCell align='center'>
+											<Tooltip title='View Details'>
+												<IconButton
+													component={Link}
+													to={`/products/${product._id}`}
+													size='small'
+												>
+													<VisibilityIcon />
+												</IconButton>
+											</Tooltip>
 										</TableCell>
 									</TableRow>
 								))
 							) : (
 								<TableRow>
-									<TableCell colSpan={5} align='center'>
-										<Typography variant='body1' sx={{py: 2}}>
+									<TableCell colSpan={6} align='center' sx={{py: 4}}>
+										<Typography variant='h6' color='text.secondary'>
 											No products found
+										</Typography>
+										<Typography variant='body2' sx={{mt: 1}}>
+											Try adjusting your filters
 										</Typography>
 									</TableCell>
 								</TableRow>

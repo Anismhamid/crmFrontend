@@ -72,28 +72,6 @@ const ProductPage: FunctionComponent<ProductPageProps> = () => {
 		fetchProductData();
 	}, [id]);
 
-	// Handle search from query parameters
-	useEffect(() => {
-		const searchQuery = searchParams.get("search");
-		const categoryQuery = searchParams.get("category");
-
-		if (searchQuery || categoryQuery) {
-			handleSearch(searchQuery, categoryQuery);
-		}
-	}, [searchParams]);
-
-	const handleSearch = async (query: string | null, category: string | null) => {
-		try {
-			setLoading(true);
-			const results = await searchProducts(query || "", category || "");
-			setRelatedProducts(results);
-		} catch (err) {
-			console.error("Error searching products:", err);
-		} finally {
-			setLoading(false);
-		}
-	};
-
 	const handleAddToCart = (product: Product) => {
 		// Implement add to cart functionality
 		console.log("Added to cart:", product);

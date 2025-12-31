@@ -90,7 +90,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({auth}) => {
 			{/* Cards Row */}
 			<div className='row g-4 mb-4'>
 				{statCards.map((stat, index) => (
-					<div key={index} className='col-12 col-md-6 col-lg-3'>
+					<div key={index} className='col-12 col-md-6 col-lg-4 p-1'>
 						<div className='card shadow-sm h-100'>
 							<div className='card-body d-flex justify-content-between align-items-start'>
 								<div>
