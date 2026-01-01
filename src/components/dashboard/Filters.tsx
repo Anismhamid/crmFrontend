@@ -74,7 +74,6 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 			q.sortBy = filters.sortBy;
 			q.limit = filters.limit.toString();
 
-			console.log("Setting query params:", q); // Debug
 			setParams(q);
 		}, 400);
 
@@ -96,9 +95,9 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 			<Typography variant='h6' gutterBottom>
 				Filters
 			</Typography>
-			<Grid container spacing={3}>
+			<Grid container spacing={5}>
 				{/* Category */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<TextField
 						select
 						fullWidth
@@ -116,7 +115,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Price Range */}
-				<Grid size={{xs: 12, md: 12}}>
+				<Grid size={{xs: 12, md: 12, lg: 2}}>
 					<Typography gutterBottom>
 						{priceToLocalString(filters.maxPrice)}
 						{priceToLocalString(filters.minPrice)} -
@@ -132,7 +131,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Manufacturer */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<Autocomplete
 						options={manufacturers}
 						value={filters.manufacturer || ""}
@@ -144,7 +143,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Min Discount */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<TextField
 						type='number'
 						fullWidth
@@ -158,7 +157,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Switches */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<Stack spacing={1}>
 						<FormControlLabel
 							control={
@@ -186,7 +185,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Sort */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<TextField
 						select
 						fullWidth
@@ -208,7 +207,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Items per page */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<TextField
 						select
 						fullWidth
@@ -227,7 +226,7 @@ const Filters = ({filters, onChange}: FiltersProps) => {
 				</Grid>
 
 				{/* Reset Button */}
-				<Grid size={{xs: 12, md: 6}}>
+				<Grid size={{xs: 12, md: 6, lg: 2}}>
 					<Button
 						fullWidth
 						variant='outlined'

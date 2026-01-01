@@ -1,23 +1,14 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
-
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import {People, ProductionQuantityLimitsSharp} from "@mui/icons-material";
+import {ProductionQuantityLimitsSharp} from "@mui/icons-material";
 
 export const navigation = [
-	{
-		segment: "Dashboard",
-		title: "Dashboard",
-		icon: <DashboardIcon />,
-		path: "/",
-	},
 	{
 		segment: "products",
 		title: "Products",
 		icon: <ProductionQuantityLimitsSharp />,
 		path: "/products",
 	},
-	{segment: "users", title: "Manage users", icon: <People />, path: "/users"},
 	{
 		segment: "Shopping Carts",
 		title: "Shopping Carts",

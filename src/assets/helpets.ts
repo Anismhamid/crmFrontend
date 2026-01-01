@@ -13,7 +13,7 @@ export const formatDate = (dateString?: string) => {
 
 export const getRoleColor = (role: User["profile"]["role"]) => {
 	switch (role) {
-		case "admin":
+		case "Admin":
 			return "error";
 		case "seller":
 			return "success";

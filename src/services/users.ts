@@ -2,11 +2,11 @@ import axios from "axios";
 import type {UserRegisterationType} from "../interfaces/Users";
 import type {User} from "../interfaces/Users";
 
-const API = `${import.meta.env.VITE_REACT_API}/users`;
+export const userAPI = `${import.meta.env.VITE_REACT_API}/users`;
 
 export const getAllUsers = async () => {
 	try {
-		const users = await axios.get(API);
+		const users = await axios.get(userAPI);
 		return users.data;
 	} catch (error) {
 		console.error(error);
@@ -15,7 +15,7 @@ export const getAllUsers = async () => {
 
 export const loginUser = async (email: string, password: string) => {
 	try {
-		const user = await axios.post(`${API}/login`, {email, password});
+		const user = await axios.post(`${userAPI}/login`, {email, password});
 		return user.data;
 	} catch (error) {
 		console.error(error);
@@ -25,7 +25,7 @@ export const loginUser = async (email: string, password: string) => {
 
 export const registerNewUser = async (values: UserRegisterationType) => {
 	try {
-		const user = await axios.post(`${API}/register`, values);
+		const user = await axios.post(`${userAPI}/register`, values);
 		return user.data;
 	} catch (error) {
 		console.error(error);
@@ -39,7 +39,7 @@ export const getMyProfile = async (): Promise<User> => {
 	try {
 		const token = localStorage.getItem("token");
 
-		const {data} = await axios.get<User>(`${API}/me`, {
+		const {data} = await axios.get<User>(`${userAPI}/me`, {
 			headers: {
 				Authorization: token,
 			},
@@ -56,7 +56,7 @@ export const getUsers = async () => {
 	try {
 		const token = localStorage.getItem("token");
 
-		const data = await axios.get(`${API}`, {
+		const data = await axios.get(`${userAPI}`, {
 			headers: {
 				Authorization: token,
 			},

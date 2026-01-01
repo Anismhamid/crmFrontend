@@ -13,8 +13,7 @@ import {
 import {Link, useLocation} from "react-router-dom";
 import {navigation} from "../../navigation/dashboardNavigate";
 import {useAuth} from "../../context/UserContext";
-import {AppRegistration, Login, Logout, Person} from "@mui/icons-material";
-import Filters from "./Filters";
+import {AppRegistration, Dashboard, Login, Logout, Person} from "@mui/icons-material";
 
 export const drawerWidth = 240;
 
@@ -35,8 +34,7 @@ function Navbar({open}: {open: boolean}) {
 				"& .MuiDrawer-paper": {
 					width: drawerWidth,
 					paddingTop: "1rem",
-					background:
-						"linear-gradient(to bottom, rgb(23, 111, 204), #274b6a, #ffffff)",
+					background: "linear-gradient(to bottom, rgb(23, 111, 204), #ffffff)",
 					color: "white",
 				},
 			}}
@@ -47,21 +45,56 @@ function Navbar({open}: {open: boolean}) {
 			<List>
 				<>
 					{user && (
-						<ListItem key={"Profile"} disablePadding>
-							<ListItemButton
-								component={Link}
-								to={"/profile/me"}
-								selected={location.pathname === "profile"} // تمييز الصفحة الحالية
-							>
-								<ListItemIcon sx={{color: "whitesmoke"}}>
-									<Person />
-								</ListItemIcon>
-								<ListItemText sx={{color: "white"}} primary={"Profile"} />
-							</ListItemButton>
-						</ListItem>
+						<>
+							<ListItem key={"Profile"} disablePadding>
+								<ListItemButton
+									component={Link}
+									to={"/profile/me"}
+									selected={location.pathname === "profile"} // تمييز الصفحة الحالية
+								>
+									<ListItemIcon sx={{color: "whitesmoke"}}>
+										<Person />
+									</ListItemIcon>
+									<ListItemText
+										sx={{color: "white"}}
+										primary={"Profile"}
+									/>
+								</ListItemButton>
+							</ListItem>
+							<ListItem key={"Dashboard"} disablePadding>
+								<ListItemButton
+									component={Link}
+									to={"/"}
+									selected={location.pathname === "/"}
+								>
+									<ListItemIcon sx={{color: "whitesmoke"}}>
+										<Dashboard />
+									</ListItemIcon>
+									<ListItemText
+										sx={{color: "white"}}
+										primary={"Dashboard"}
+									/>
+								</ListItemButton>
+							</ListItem>
+							<ListItem key={"users"} disablePadding>
+								<ListItemButton
+									component={Link}
+									to={"/users"}
+									selected={location.pathname === "/users"}
+								>
+									<ListItemIcon sx={{color: "whitesmoke"}}>
+										<Person />
+									</ListItemIcon>
+									<ListItemText
+										sx={{color: "white"}}
+										primary={"Users management"}
+									/>
+								</ListItemButton>
+							</ListItem>
+						</>
 					)}
-					{navigation.map((item) => (
-						<ListItem key={item.segment} disablePadding>
+					{navigation.map((item, index) => (
+						<ListItem key={index} disablePadding>
 							<ListItemButton
 								component={Link}
 								to={item.path}

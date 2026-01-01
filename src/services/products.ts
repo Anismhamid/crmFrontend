@@ -1,6 +1,5 @@
 import axios from "axios";
 import type {ProductFilters} from "../interfaces/filter";
-import type {Product} from "../interfaces/Products";
 
 const API = `${import.meta.env.VITE_REACT_API}/products`;
 
